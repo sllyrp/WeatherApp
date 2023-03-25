@@ -51,7 +51,7 @@ navigator.geolocation.getCurrentPosition(position => {
 
                         button.textContent = period.name
 
-                        if (button.textContent.includes("Night") || button.textContent == "Overnight" || button.textContent == data.properties.periods[0].name) {
+                        if (button.textContent.includes("Night") || button.textContent == "Overnight" || button.textContent == data.properties.periods[0].name || button.textContent == "Tonight") {
                             return
                         }
 
@@ -109,6 +109,10 @@ navigator.geolocation.getCurrentPosition(position => {
                             windSpeedText.textContent = period.windSpeed
                             humidityText.textContent = (period.relativeHumidity.value)
                             dewPointText.textContent =Math.round(period.dewpoint.value);
+
+                            if (windDirectionText.length == 3) {
+                                windDirectionText.classList.add("windDirectionTextThree")
+                            }
                         })
 
                         document.querySelector("#tableButtonContainer").appendChild(button)
@@ -235,6 +239,7 @@ function getWeather() {
                 
                 
                                         button.addEventListener("click", () => {
+
                                             document.querySelectorAll(".tableButton").forEach(button => {
                                                 button.classList.remove("tableButtonActive")
                                             })
@@ -248,6 +253,14 @@ function getWeather() {
                                             windSpeedText.textContent = period.windSpeed
                                             humidityText.textContent = (period.relativeHumidity.value)
                                             dewPointText.textContent =Math.round(period.dewpoint.value);
+
+                                            if (windDirectionText.textContent.length < 3) {
+                                                windDirectionText.classList.remove("windDirectionTextThree")
+                                            }
+
+                                            if (windDirectionText.textContent.length == 3) {
+                                                windDirectionText.classList.add("windDirectionTextThree")
+                                            }
                                         })
                 
                                         document.querySelector("#tableButtonContainer").appendChild(button)
@@ -262,6 +275,12 @@ function getWeather() {
                                     windSpeedText.textContent = data.properties.periods[0].windSpeed
                                     humidityText.textContent = (data.properties.periods[0].relativeHumidity.value)
                                     dewPointText.textContent =Math.round(data.properties.periods[0].dewpoint.value);
+
+                                    console.log(windDirectionText.textContent.length)
+
+                                    if (windDirectionText.textContent.length == 3) {
+                                        windDirectionText.classList.add("windDirectionTextThree")
+                                    }
                                 })
                         })
                 })

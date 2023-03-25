@@ -6,18 +6,46 @@
 
 * {
   font-family: "Roboto", "Material Symbols Outlined";
-  color: white;
+  color: black;
 }
 
 body {
   margin: 0px;
   padding: 0px;
-  background: #26547c;
+  background-color: #1a2a6c; /* fallback for old browsers */
+  background-image: -webkit-linear-gradient(
+    to right,
+    #fdbb2d,
+    #b21f1f,
+    #1a2a6c
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background-image: linear-gradient(
+    45deg, 
+    #fdbb2d,
+    #b21f1f,
+    #1a2a6c
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-attachment: fixed;
+  background-size: 150% 150%; /* Set larger than 100% for the background to flow */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  animation: background 30s ease infinite; /* Use CSS animation with infinite loop */
 }
+
+@keyframes background {
+   0% {
+      background-position: 0% 0;
+   }
+   50% {
+      background-position: 100% 0;
+   }
+   100% {
+      background-position: 0% 0;
+   }
+}
+
 
 #searchContainer {
   position: absolute;
@@ -30,17 +58,16 @@ body {
 
 #surround {
   position: relative;
-  background-color: #00000062;
+  background-color: #ffffff;
   border-radius: 10px;
   justify-content: center;
   width: 423px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 
 #errorContainer {
   position: absolute;
-  left: calc(
-    50% - 185px
-  );
+  left: calc(50% - 185px);
   top: calc(28% - 60px);
   width: 20%;
 }
@@ -51,9 +78,7 @@ body {
 
 #errorContainer {
   position: absolute;
-  left: calc(
-    50% - 185px
-  );
+  left: calc(50% - 185px);
   top: calc(28% - 60px);
   width: 20%;
 }
@@ -69,6 +94,7 @@ body {
 }
 
 #weather {
+  color: white;
   position: block;
   width: 110px;
   height: 50px;
@@ -84,10 +110,11 @@ body {
 
 #weather:hover {
   background-position: 0px 500px;
-  box-shadow: inset 0 0 100px 100px #f77f00;
+  box-shadow: inset 0 0 100px 100px #f77f00, 0 0 10px 0 rgba(0, 0, 0, 0.2);;
 }
 
-#weatherRowContainer, #weatherContainer {
+#weatherRowContainer,
+#weatherContainer {
   position: absolute;
   width: 423px;
   top: 55px;
@@ -99,12 +126,13 @@ body {
 
 #tempContainer {
   position: relative;
-  background-color: #00000062;
+  background-color: #ffffff;
   border-radius: 10px;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 200px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 
 #tempContainer > .material-icons-outlined {
@@ -116,7 +144,7 @@ body {
 
 #windContainer {
   position: relative;
-  background-color: #00000062;
+  background-color: #ffffff;
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -124,6 +152,7 @@ body {
   width: 200px;
   height: 200px;
   margin: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 
 #windContainer > .material-icons-outlined {
@@ -153,6 +182,12 @@ body {
   font-size: 60px;
 }
 
+.windDirectionTextThree {
+  position: absolute;
+  top: 65px !important;
+  font-size: 40px !important;
+}
+
 #windSpeedText {
   position: absolute;
   top: 150px;
@@ -174,12 +209,13 @@ body {
 
 #windDirectionContainer {
   position: relative;
-  background-color: #00000062;
+  background-color: #ffffff;
   border-radius: 10px;
   justify-content: center;
   align-items: center;
   width: 210px;
   height: 200px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 
 #extraContainer {
@@ -194,18 +230,19 @@ body {
 
 #humidityContainer {
   position: relative;
-  background-color: #00000062;
+  background-color: #ffffff;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 210px;
   height: 200px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 
 #dewPointContainer {
   position: relative;
-  background-color: #00000062;
+  background-color: #ffffff;
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -213,6 +250,7 @@ body {
   width: 210px;
   height: 200px;
   margin: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 
 #humidityContainer > .material-icons-outlined {
@@ -220,7 +258,6 @@ body {
   left: 69px;
   top: 10px;
   font-size: 75px;
-  
 }
 
 #dewPointContainer > .material-icons-outlined {
@@ -254,6 +291,7 @@ body {
 
 #rowOne {
   position: absolute;
+  margin: 0px;
   width: 423px;
   top: 0px;
   display: flex;
@@ -263,7 +301,7 @@ body {
 
 #rowTwo {
   padding-top: 0px;
-  margin-top: 0px;
+  margin: 0px;
   position: relative;
   width: 423px;
   top: 35px;
@@ -295,16 +333,23 @@ body {
 
 #weatherDescriptionContainer {
   position: relative;
-  background-color: #00000062;
+  background-color: #ffffff;
   border-radius: 10px;
   justify-content: center;
   width: 100%;
   height: auto;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  padding: 10px;
+}
+
+#weatherDescriptionText {
+  position: relative;
+  text-align: center;
 }
 
 #tableContainer {
   position: relative;
-  background-color: #00000062;
+  background-color: #ffffff;
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -316,7 +361,7 @@ body {
 }
 
 #tableButtonContainer {
-  background-color: #00000062;
+  background-color: #ffffff;
   position: relative;
   display: flex;
   justify-content: center;
@@ -326,19 +371,21 @@ body {
   margin: 5px;
   flex-direction: row;
   border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 
 .tableButton {
   position: relative;
-  background-color: #75757500;
+  background-color: #d6282800;
   border: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 63px;
+  width: auto;
   height: 20px;
   flex-direction: row;
   border-radius: 5px;
+  font-weight: bold;
 }
 
 .tableButtonActive {
