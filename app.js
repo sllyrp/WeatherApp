@@ -60,6 +60,8 @@ navigator.geolocation.getCurrentPosition(position => {
 })
 
 function getWeather() {
+    errorText.textContent = "‍"
+
     if (search.value.trim().split(" ")[0]) {
         if (!search.value.includes(".")) {
             const searchValue = search.value.replace(/\s+/g, "+")
@@ -99,7 +101,30 @@ function getWeather() {
                             // Process the API response data
                             console.log(data);
 
-                            tempNumber.textContent = data.properties.periods[0].temperature
+                            fetch(data.properties.forecast, {
+                                headers: {
+                                    'User-Agent': 'your-app-name'
+                                }
+                            })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Network response was not ok');
+                                    }
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    console.log(data) 
+                
+                                    // TODO: Change icon per weather
+                
+                                    tempNumber.innerHTML = data.properties.periods[0].temperature + "<a id='tempUnit'>°" + data.properties.periods[0].temperatureUnit + "</a>"
+                                    weatherDescriptionText.textContent = data.properties.periods[0].detailedForecast
+                                    tempUnit.textContent = data.properties.periods[0].temperatureUnit
+                                    windDirectionText.textContent = data.properties.periods[0].windDirection
+                                    windSpeedText.textContent = data.properties.periods[0].windSpeed
+                                    humidityText.textContent = (data.properties.periods[0].relativeHumidity.value)
+                                    dewPointText.textContent =Math.round(data.properties.periods[0].dewpoint.value);
+                                })
                         })
                 })
             return
@@ -119,6 +144,12 @@ function getWeather() {
                 return response.json();
             })
             .then(data => {
+                if (data.title) {
+                    errorText.textContent = data.title
+
+                    throw new Error(data.title)
+                }
+
                 // Process the API response data
                 console.log(data);
             })
