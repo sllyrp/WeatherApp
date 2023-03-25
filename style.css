@@ -22,14 +22,14 @@ body {
 #searchContainer {
   position: absolute;
   width: 100%;
-  top: 71px; /* adjust the height accordingly */
+  top: 71px;
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 
 #surround {
-  position: relative; /* added */
+  position: relative;
   background-color: #00000062;
   border-radius: 10px;
   justify-content: center;
@@ -40,7 +40,7 @@ body {
   position: absolute;
   left: calc(
     50% - 185px
-  ); /* adjust this value to move the error box right or left of the center */
+  );
   top: calc(28% - 60px);
   width: 20%;
 }
@@ -53,13 +53,14 @@ body {
   position: absolute;
   left: calc(
     50% - 185px
-  ); /* adjust this value to move the error box right or left of the center */
+  );
   top: calc(28% - 60px);
   width: 20%;
 }
 
 #search {
   border: none;
+  outline: none;
   background-color: #ffffff00;
   height: 50px;
   width: 280px;
@@ -97,7 +98,7 @@ body {
 }
 
 #tempContainer {
-  position: relative; /* added */
+  position: relative;
   background-color: #00000062;
   border-radius: 10px;
   justify-content: center;
@@ -114,7 +115,7 @@ body {
 }
 
 #windContainer {
-  position: relative; /* added */
+  position: relative;
   background-color: #00000062;
   border-radius: 10px;
   display: flex;
@@ -172,7 +173,7 @@ body {
 }
 
 #windDirectionContainer {
-  position: relative; /* added */
+  position: relative;
   background-color: #00000062;
   border-radius: 10px;
   justify-content: center;
@@ -182,7 +183,7 @@ body {
 }
 
 #extraContainer {
-  position: relative; /* added */
+  position: relative;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -192,7 +193,7 @@ body {
 }
 
 #humidityContainer {
-  position: relative; /* added */
+  position: relative;
   background-color: #00000062;
   border-radius: 10px;
   display: flex;
@@ -203,7 +204,7 @@ body {
 }
 
 #dewPointContainer {
-  position: relative; /* added */
+  position: relative;
   background-color: #00000062;
   border-radius: 10px;
   display: flex;
@@ -265,7 +266,7 @@ body {
   margin-top: 0px;
   position: relative;
   width: 423px;
-  top: 210px;
+  top: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -275,7 +276,17 @@ body {
 #rowThree {
   position: relative;
   width: 423px;
-  top: 211px;
+  top: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#rowFour {
+  position: relative;
+  width: 423px;
+  top: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -283,7 +294,7 @@ body {
 }
 
 #weatherDescriptionContainer {
-  position: relative; /* added */
+  position: relative;
   background-color: #00000062;
   border-radius: 10px;
   justify-content: center;
@@ -291,7 +302,72 @@ body {
   height: auto;
 }
 
+#tableContainer {
+  position: relative;
+  background-color: #00000062;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  margin: 5px;
+  flex-direction: column;
+}
+
+#tableButtonContainer {
+  background-color: #00000062;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 415px;
+  height: 30px;
+  margin: 5px;
+  flex-direction: row;
+  border-radius: 10px;
+}
+
+.tableButton {
+  position: relative;
+  background-color: #75757500;
+  border: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 63px;
+  height: 20px;
+  flex-direction: row;
+  border-radius: 5px;
+}
+
+.tableButtonActive {
+  color: white;
+  position: relative;
+  background-color: #d62828;
+  border: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 20px;
+  flex-direction: row;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
 ::selection {
   background: #d62828;
-  color: white;
+}
+
+@media only screen and (max-width: 466px) {
+  #weatherDescriptionContainer {
+    position: relative;
+    background-color: #ff0000;
+    border-radius: 10px;
+    margin: 5px;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+  }
 }

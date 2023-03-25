@@ -9,11 +9,6 @@ const windSpeedText = document.querySelector("#windSpeedText")
 const humidityText = document.querySelector("#humidityText")
 const dewPointText = document.querySelector("#dewPointText")
 
-const apiKey = 'your-api-key';
-const lat = 'your-latitude';
-const lon = 'your-longitude';
-const url = `https://api.weather.gov/points/39.7456,-97.0892`;
-
 // Get the user's location using the Geolocation API
 navigator.geolocation.getCurrentPosition(position => {
     const { latitude, longitude } = position.coords;
@@ -44,9 +39,82 @@ navigator.geolocation.getCurrentPosition(position => {
                     return response.json();
                 })
                 .then(data => {
-                    console.log(data) 
 
                     // TODO: Change icon per weather
+
+                    data.properties.periods.forEach((period, i) => {
+                        const button = document.createElement("button")
+
+                        button.id = "button" + period.name
+
+                        button.classList.add("tableButton")
+
+                        button.textContent = period.name
+
+                        if (button.textContent.includes("Night") || button.textContent == "Overnight" || button.textContent == data.properties.periods[0].name) {
+                            return
+                        }
+
+                        const today = new Date().getDay()
+
+                        if (today == 0) {
+                            if (button.textContent.includes("Monday")) {
+                                button.classList.add("tableButtonActive")
+                                button.textContent = "Today"
+                            }
+                        } else if (today == 1) {
+                            if (button.textContent.includes("Tuesday")) {
+                                button.classList.add("tableButtonActive")
+                                button.textContent = "Today"
+                            }
+                        } else if (today == 2) {
+                            if (button.textContent.includes("Wednesday")) {
+                                button.classList.add("tableButtonActive")
+                                button.textContent = "Today"
+                            }
+                        } else if (today == 3) {
+                            if (button.textContent.includes("Thursday")) {
+                                button.classList.add("tableButtonActive")
+                                button.textContent = "Today"
+                            }
+                        } else if (today == 4) {
+                            if (button.textContent.includes("Friday")) {
+                                button.classList.add("tableButtonActive")
+                                button.textContent = "Today"
+                            }
+                        } else if (today == 5) {
+                            if (button.textContent.includes("Saturday")) {
+                                button.classList.add("tableButtonActive")
+                                button.textContent = "Today"
+                            }
+                        } else if (today == 6) {
+                            if (button.textContent.includes("Sunday")) {
+                                button.classList.add("tableButtonActive")
+                                button.textContent = "Today"
+                            }
+                        }
+
+
+                        button.addEventListener("click", () => {
+                            document.querySelectorAll(".tableButton").forEach(button => {
+                                button.classList.remove("tableButtonActive")
+                            })
+
+                            button.classList.add("tableButtonActive")
+
+                            tempNumber.innerHTML = period.temperature + "<a id='tempUnit'>°" + period.temperatureUnit + "</a>"
+                            weatherDescriptionText.textContent = period.detailedForecast
+                            tempUnit.textContent = period.temperatureUnit
+                            windDirectionText.textContent = period.windDirection
+                            windSpeedText.textContent = period.windSpeed
+                            humidityText.textContent = (period.relativeHumidity.value)
+                            dewPointText.textContent =Math.round(period.dewpoint.value);
+                        })
+
+                        document.querySelector("#tableButtonContainer").appendChild(button)
+
+                        i++
+                    })
 
                     tempNumber.innerHTML = data.properties.periods[0].temperature + "<a id='tempUnit'>°" + data.properties.periods[0].temperatureUnit + "</a>"
                     weatherDescriptionText.textContent = data.properties.periods[0].detailedForecast
@@ -54,7 +122,7 @@ navigator.geolocation.getCurrentPosition(position => {
                     windDirectionText.textContent = data.properties.periods[0].windDirection
                     windSpeedText.textContent = data.properties.periods[0].windSpeed
                     humidityText.textContent = (data.properties.periods[0].relativeHumidity.value)
-                    dewPointText.textContent =Math.round(data.properties.periods[0].dewpoint.value);
+                    dewPointText.textContent = Math.round(data.properties.periods[0].dewpoint.value);
                 })
         })
 })
@@ -74,8 +142,6 @@ function getWeather() {
                     }
                     return response.json()
 
-                    // change errorText to show error
-
                     errorText.textContent = "Please enter a valid location"
                 })
                 .then(data => {
@@ -84,8 +150,6 @@ function getWeather() {
 
                         throw new Error('No results found')
                     }
-
-                    console.log(data)
 
                     fetch(`https://api.weather.gov/points/${data[0].lat},${data[0].lon}`)
                         .then(response => {
@@ -97,9 +161,6 @@ function getWeather() {
 
                                 throw new Error(data.title)
                             }
-
-                            // Process the API response data
-                            console.log(data);
 
                             fetch(data.properties.forecast, {
                                 headers: {
@@ -113,9 +174,86 @@ function getWeather() {
                                     return response.json();
                                 })
                                 .then(data => {
-                                    console.log(data) 
+                                    document.querySelectorAll(".tableButton").forEach(button => {
+                                        button.remove()
+                                    })
                 
                                     // TODO: Change icon per weather
+
+                                    data.properties.periods.forEach((period, i) => {
+
+                                        const button = document.createElement("button")
+                
+                                        button.id = "button" + period.name
+                
+                                        button.classList.add("tableButton")
+                
+                                        button.textContent = period.name
+                
+                                        if (button.textContent.includes("Night") || button.textContent == "Overnight" || button.textContent == data.properties.periods[0].name) {
+                                            return
+                                        }
+                
+                                        const today = new Date().getDay()
+                
+                                        if (today == 0) {
+                                            if (button.textContent.includes("Monday")) {
+                                                button.classList.add("tableButtonActive")
+                                                button.textContent = "Today"
+                                            }
+                                        } else if (today == 1) {
+                                            if (button.textContent.includes("Tuesday")) {
+                                                button.classList.add("tableButtonActive")
+                                                button.textContent = "Today"
+                                            }
+                                        } else if (today == 2) {
+                                            if (button.textContent.includes("Wednesday")) {
+                                                button.classList.add("tableButtonActive")
+                                                button.textContent = "Today"
+                                            }
+                                        } else if (today == 3) {
+                                            if (button.textContent.includes("Thursday")) {
+                                                button.classList.add("tableButtonActive")
+                                                button.textContent = "Today"
+                                            }
+                                        } else if (today == 4) {
+                                            if (button.textContent.includes("Friday")) {
+                                                button.classList.add("tableButtonActive")
+                                                button.textContent = "Today"
+                                            }
+                                        } else if (today == 5) {
+                                            if (button.textContent.includes("Saturday")) {
+                                                button.classList.add("tableButtonActive")
+                                                button.textContent = "Today"
+                                            }
+                                        } else if (today == 6) {
+                                            if (button.textContent.includes("Sunday")) {
+                                                button.classList.add("tableButtonActive")
+                                                button.textContent = "Today"
+                                            }
+                                        }
+                
+                
+                                        button.addEventListener("click", () => {
+                                            document.querySelectorAll(".tableButton").forEach(button => {
+                                                button.classList.remove("tableButtonActive")
+                                            })
+                
+                                            button.classList.add("tableButtonActive")
+                
+                                            tempNumber.innerHTML = period.temperature + "<a id='tempUnit'>°" + period.temperatureUnit + "</a>"
+                                            weatherDescriptionText.textContent = period.detailedForecast
+                                            tempUnit.textContent = period.temperatureUnit
+                                            windDirectionText.textContent = period.windDirection
+                                            windSpeedText.textContent = period.windSpeed
+                                            humidityText.textContent = (period.relativeHumidity.value)
+                                            dewPointText.textContent =Math.round(period.dewpoint.value);
+                                        })
+                
+                                        document.querySelector("#tableButtonContainer").appendChild(button)
+                
+                                        i++
+                                    })
                 
                                     tempNumber.innerHTML = data.properties.periods[0].temperature + "<a id='tempUnit'>°" + data.properties.periods[0].temperatureUnit + "</a>"
                                     weatherDescriptionText.textContent = data.properties.periods[0].detailedForecast
@@ -149,8 +287,6 @@ function getWeather() {
 
                     throw new Error(data.title)
                 }
-
-                // Process the API response data
                 console.log(data);
             })
             .catch(error => {
@@ -158,5 +294,11 @@ function getWeather() {
             });
     }
 }
+
+search.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+      getWeather()
+    }
+  });
 
 button.addEventListener('click', getWeather)
